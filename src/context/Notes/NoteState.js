@@ -2,7 +2,7 @@ import NoteContext from "./NoteContext";
 import { useState } from "react";
 
 const NoteState = (props) => {
-    const notes = [
+    const notes_arr = [
         {
             "_id": "64666e8c39d452f1cd767355",
             "user": "64666e1339d452f1cd76734d",
@@ -32,10 +32,24 @@ const NoteState = (props) => {
         }
     ]
     
-    const [Notes, setNotes] = useState(notes)
+    const [notes, setNotes] = useState(notes_arr)
 
+    const addNote=(title,description,tag)=>{
+        const note=
+        {
+            "_id": "9967db05aee38756abc1c041",
+            "user": "64666e1339d452f1cd76734d",
+            "title": title,
+            "description": description,
+            "tag": tag,
+            "date": new Date().toLocaleString(),
+            "__v": 0
+        };
+        console.log('Note created',note)
+        setNotes(notes_arr.concat(note))
+    }
     return (
-        <NoteContext.Provider value={{Notes,setNotes}}>
+        <NoteContext.Provider value={{notes,setNotes,addNote}}>
             {props.children}
         </NoteContext.Provider>
     )
