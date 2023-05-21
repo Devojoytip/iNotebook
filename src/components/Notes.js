@@ -1,11 +1,16 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import NoteContext from '../context/Notes/NoteContext';
 import NoteItem from './NoteItem';
 import { CardGroup } from 'react-bootstrap';
 
 const Notes = () => {
     const context = useContext(NoteContext);
-    const { notes, setNotes } = context;
+    const { notes, fetchNotes } = context;
+
+    useEffect(() => {
+        fetchNotes()
+    }, [])
+
     return (
         <div className="container my-3">
             {
