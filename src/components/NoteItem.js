@@ -34,7 +34,7 @@ const NoteItem = (props) => {
           <i className="fa-sharp fa-solid fa-trash" onClick={() => deleteNote(note._id)}></i>
         </Button>
         <Button variant="primary">
-          <i className="fa-solid fa-pen-to-square" onClick={()=> updateNote(note._id)}></i>
+          <i className="fa-solid fa-pen-to-square" onClick={()=> updateNote(note)}></i>
         </Button>
         </div>
       </div>

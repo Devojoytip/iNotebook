@@ -5,24 +5,28 @@ import AddNote from './AddNote';
 
 const Notes = () => {
     const context = useContext(NoteContext);
-    const { notes, fetchNotes } = context;
+    const { notes, fetchNotes, editNote } = context;
 
     useEffect(() => {
         fetchNotes()
     }, [])
 
     const ref = useRef(null)
-    const updateNote = (note) => {
+    const refClose = useRef(null)
+
+    const updateNote = (curr_note) => {
         ref.current.click()
+        setNote({ id: curr_note._id, etitle: curr_note.title, edescription: curr_note.description, etag: curr_note.tag })
     }
 
-    const {addNote} = context;
+    const { addNote } = context;
 
-    const [note, setNote] = useState({ title: "", description: "", tag: "" })
+    const [note, setNote] = useState({ id: "", etitle: "", edescription: "", etag: "" })
 
     const handleClick = (e) => {
-        e.preventDefault()
-        addNote(note.title,note.description,note.tag)
+        console.log('Updating note')
+        editNote(note.id,note.etitle,note.edescription,note.etag)
+        refClose.current.click()
     }
 
     const onChange = (e) => {
@@ -61,14 +65,14 @@ const Notes = () => {
                             </form>
                         </div>
                         <div className="modal-footer">
-                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" className="btn btn-primary">Update Now</button>
+                            <button ref={refClose} type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button onClick={handleClick} type="button" className="btn btn-primary">Update Now</button>
                         </div>
                     </div>
                 </div>
             </div>
-            
-            
+
+
             <div className="row row-cols-1 row-cols-md-3 g-4" >
                 <h1 style={{ width: "80%", position: "relative", left: "10%", textAlign: "center" }}>All your Notes</h1>
             </div>
