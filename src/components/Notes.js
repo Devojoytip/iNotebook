@@ -25,7 +25,7 @@ const Notes = () => {
 
     const handleClick = (e) => {
         console.log('Updating note')
-        editNote(note.id,note.etitle,note.edescription,note.etag)
+        editNote(note.id, note.etitle, note.edescription, note.etag)
         refClose.current.click()
     }
 
@@ -77,8 +77,9 @@ const Notes = () => {
                 <h1 style={{ width: "80%", position: "relative", left: "10%", textAlign: "center" }}>All your Notes</h1>
             </div>
             <div className="row row-cols-1 row-cols-md-3 g-4" style={{ width: "80%", position: "relative", left: "10%" }}>
-
-
+                
+                {notes.length === 0 && 'No notes to display'}
+                
                 {notes.map((note) => {
                     return <NoteItem key={note._id} note={note} updateNote={updateNote} ></NoteItem>
                 })}
