@@ -25,7 +25,7 @@ const AddNote = () => {
 
             <form>
                 <div className="form-group">
-                    <label htmlFor="title">Tag</label>
+                    <label htmlFor="tag">Tag</label>
                     <input type="text" id="tag" name='tag' className='form-control tag' aria-describedby="emailHelp" placeholder="Enter tag" onChange={onChange} />
                 </div>
                 <div className="form-group">

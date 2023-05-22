@@ -32,13 +32,26 @@ const NoteState = (props) => {
             "__v": 0
         };
         console.log('Note created', note)
-        setNotes(notes_arr.concat(note))
+        setNotes(notes.concat(note))
     }
 
-    const deleteNote = (id) => {
-        const newnotes = notes_arr.filter((note) => note._id !== id)
-        console.log(`Note with id ${id} deleted`)
-        setNotes(newnotes)
+    const deleteNote = async (id) => {
+        const response = await fetch(`${host}/api/notes/deletenote/${id}`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+                "auth-token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjQ2NjZlMTMzOWQ0NTJmMWNkNzY3MzRkIn0sImlhdCI6MTY4NDQzNDUxM30.oh71fxy165qC0VZ74Ai7SFK1fot5GB-0YzruBIop360"
+            }
+        });
+
+        const json = await response.json();
+        console.log(json)
+        setNotes(json)
+        
+        const new_notes=notes.filter((note)=>{
+            return note._id!==id
+        })
+        setNotes(new_notes)
     }
 
     const editNote = (id, title, description, tag) => {
@@ -53,7 +66,7 @@ const NoteState = (props) => {
     }
 
     return (
-        <NoteContext.Provider value={{ notes, setNotes, addNote, deleteNote, fetchNotes }}>
+        <NoteContext.Provider value={{ notes,notes_arr, setNotes, addNote, deleteNote, fetchNotes }}>
             {props.children}
         </NoteContext.Provider>
     )
